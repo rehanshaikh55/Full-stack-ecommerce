@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
+import OrderCard from "./OrderCard";
 const orderStatus = [
   { lable: "On the way", value: "on_the_way" },
   { lable: "Delivered", value: "delivered" },
@@ -10,14 +11,19 @@ const orderStatus = [
 const Order = () => {
   return (
     <div>
-      <Grid container spacing={0} sx={{ justifyContent: "space-between" }}>
-        <Grid item xs={2.5}>
+      <Grid
+        container
+        className=""
+        spacing={0}
+        sx={{ justifyContent: "space-between" }}
+      >
+        <Grid item xs={3}>
           <div className=" h-auto shadow-lg bg-white p-5 sticky top-5">
             <h1 className=" font-bold text-lg">Filter</h1>
             <div className=" space-y-4 mt-10">
               <h1 className=" font-semibold">Order Status</h1>
               {orderStatus.map((option) => (
-                <div className=" flex items-center">
+                <div className="items-center">
                   <input
                     type="checkbox"
                     className=" h-4 w-4 border-gray-400 focus:ring-black"
@@ -34,11 +40,9 @@ const Order = () => {
             </div>
           </div>
         </Grid>
-      </Grid>
-      <Grid item>
-
-     faf
-        
+        <Grid item xs={9}>
+          <OrderCard />
+        </Grid>
       </Grid>
     </div>
   );
