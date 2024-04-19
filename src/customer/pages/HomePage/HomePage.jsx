@@ -8,8 +8,8 @@ import Footer from '../../components/footer/footer.jsx'
 import HomeParallex from '../../components/HomePage2/HomeParallex.jsx'
 const HomePage = () => {
   return (
-    <div>
-      <HomeParallex/>
+    <div className=''>
+      {/* <HomeParallex/> */}
       <HeroFirst />
       <MainCarousel />
       <div className=' py-10 space-y-10 flex flex-col px-3'>

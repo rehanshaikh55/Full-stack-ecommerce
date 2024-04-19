@@ -5,7 +5,7 @@ import AdjustIcon from '@mui/icons-material/Adjust';
 
 const OrderCard = () => {
   return (
-    <div className=' px-10 py-5'>
+    <div className=' px-10 py-5 shadow-md  hover:shadow-lg border'>
       <Grid container spacing={2} sx={{justifyContent:"space-between"}}>
            <Grid sx={6} item>
              <div className=' flex cursor-pointer '>

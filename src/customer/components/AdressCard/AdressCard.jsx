@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddressCard = () => {
+const AdressCard = () => {
   return (
     <div className=' '>
           <div className=' space-y-3'>
@@ -19,5 +19,5 @@ const AddressCard = () => {
   )
 }
 
-export default AddressCard
+export default AdressCard
 

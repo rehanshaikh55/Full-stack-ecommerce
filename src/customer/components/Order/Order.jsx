@@ -40,8 +40,10 @@ const Order = () => {
             </div>
           </div>
         </Grid>
-        <Grid item xs={9}>
-          <OrderCard />
+        <Grid item xs={9} className=" px-8 py-4">
+          <div className=" space-y-3">
+          {[1,1,1,1].map((item)=><OrderCard />)}
+          </div>
         </Grid>
       </Grid>
     </div>
