@@ -39,39 +39,13 @@ const navigation = {
           name: "Clothing",
           items: [
             { name: "Tops",id:'top', href:`{women/clothing/top}` },
-            { name: "Dresses", href: "#" },
-            { name: "Pants", href: "#" },
-            { name: "Denim", href: "#" },
-            { name: "Sweaters", href: "#" },
-            { name: "T-Shirts", href: "#" },
-            { name: "Jackets", href: "#" },
-            { name: "Activewear", href: "#" },
-            { name: "Browse All", href: "#" },
+            { name: "Dresses",id:'dress', href: "#" },
+            { name: "Pants",id:'pant', href: "#" },
+            { name: "T-Shirts",id:'tshirt', href: "#" },
+           
           ],
         },
-        {
-          id: "accessories",
-          name: "Accessories",
-          items: [
-            { name: "Watches", href: "#" },
-            { name: "Wallets", href: "#" },
-            { name: "Bags", href: "#" },
-            { name: "Sunglasses", href: "#" },
-            { name: "Hats", href: "#" },
-            { name: "Belts", href: "#" },
-          ],
-        },
-        {
-          id: "brands",
-          name: "Brands",
-          items: [
-            { name: "Full Nelson", href: "#" },
-            { name: "My Way", href: "#" },
-            { name: "Re-Arranged", href: "#" },
-            { name: "Counterfeit", href: "#" },
-            { name: "Significant Other", href: "#" },
-          ],
-        },
+       
       ],
     },
     {
@@ -100,7 +74,7 @@ const navigation = {
           id: "clothing",
           name: "Clothing",
           items: [
-            { name: "Tops", href: "#" },
+            { name: "Tops",id:'top', href: "men/clothing/top" },
             { name: "Pants", href: "#" },
             { name: "Sweaters", href: "#" },
             { name: "T-Shirts", href: "#" },
@@ -520,7 +494,7 @@ export default function Navigation() {
                         <MenuItem onClick={handleCloseUserMenu}>
                           Profile
                         </MenuItem>
-                        <MenuItem>My Order</MenuItem>
+                        <MenuItem onClick={()=>navigate("/account/order")}>My Order</MenuItem>
                         <MenuItem>Logout</MenuItem>
                       </Menu>
                     </div>

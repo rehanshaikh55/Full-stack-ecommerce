@@ -1,7 +1,12 @@
 import React from "react";
 import Cartitem from "./Cartitem";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+   const navigate = useNavigate();
+   const hancleCheckOut =()=>{
+    navigate("/checkout?step=2")
+   }
   return (
     <div>
       <div className=" lg:grid grid-cols-3 lg:px-3 relative">
@@ -34,6 +39,7 @@ const Cart = () => {
                 </div>
             </div>
             <button
+            onClick={hancleCheckOut}
                 type="submit"
                 className=" my-4 mx-4 w-[94%] items-center justify-center rounded-md border border-transparent bg-black  py-3 text-base font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
               >
