@@ -10,6 +10,13 @@
             
         }
   }
+  canvas{
+    margin-top: 20px;
+    height: 70vh !important;
+    
+    
+    
+  }
   .text2{
     padding: 40px;
     border-radius: 20px;

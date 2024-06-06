@@ -6,12 +6,17 @@ import { mens_kurta } from '../../../data/kurta'
 
 import Footer from '../../components/footer/footer.jsx'
 import HomeParallex from '../../components/HomePage2/HomeParallex.jsx'
+import Header from '../../components/header/header.jsx'
+import Model from '../../components/threeDmodel/Model.jsx'
+
 const HomePage = () => {
   return (
     <div className=''>
+      <Header  />
       {/* <HomeParallex/> */}
       <HeroFirst />
-      <MainCarousel />
+     <Model />
+      {/* <MainCarousel /> */}
       <div className=' py-10 space-y-10 flex flex-col px-3'>
        <HomeSectionCarousel data={mens_kurta} sectionName="Mens Wear" />
        <HomeSectionCarousel  data={mens_kurta} sectionName="xyz" />

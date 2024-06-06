@@ -18,11 +18,7 @@ const HomeParallex = () => {
                   sophistication with Glintglam</div>
         </div>
       </Parallax>
-       <Parallax strength={600} bgImage={cloth1}>
-        <div className="content">
-          <div className="absolute top-[50%] left-[50%] py-[5px] px-[15px] translate-x-[-50%] translate-y-[-50%]">Blur</div>
-        </div>
-      </Parallax>
+       
     </div>
   )
 }

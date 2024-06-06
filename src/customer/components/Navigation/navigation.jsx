@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -8,7 +8,10 @@ import {
 } from "@heroicons/react/24/outline";
 import { Avatar, Menu, MenuItem, Button } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import AuthModal from "../../auth/authModal";
+import { useDispatch,useSelector } from "react-redux";
+import { getUser, logout } from "../../../state/Auth/Action";
 
 const navigation = {
   categories: [
@@ -114,7 +117,12 @@ export default function Navigation() {
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const openUserMenu = Boolean(anchorEl);
   const jwt = localStorage.getItem("jwt");
+  const {auth}=useSelector(store=>store)
   const navigate = useNavigate();
+  const dispatch=useDispatch();
+  const location = useLocation();
+
+
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -126,13 +134,37 @@ export default function Navigation() {
   };
   const handleClose = () => {
     setOpenAuthModal(false);
+   
   };
   const handleCategoryClick = (category, section, item) => {
     navigate(`/${category.id}/${section.id}/${item.id}`);
     
   };
+
+  useEffect(()=>{
+    if(jwt){
+      dispatch(getUser(jwt))
+  
+    }
+   },[jwt,auth.jwt])
+
+useEffect(()=>{
+   if(auth.user){
+    handleClose();
+   }
+   if(location.pathname==="/login"|| location.pathname==="/signup"){
+    navigate(-1)
+   }
+},[auth.user])
+
+
+const handleLogout=()=>{
+  dispatch(logout())
+  handleCloseUserMenu()
+}
+
   return (
-    <div className="bg-white z-50 ">
+    <div className="bg-white  ">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -403,9 +435,9 @@ export default function Navigation() {
                                         </div>
                                       ))}
                                     </div>
-                                    <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
+                                    <div className="row-start-1 grid grid-cols-3 gap-x-8 z-50 gap-y-10 text-sm">
                                       {category.sections.map((section) => (
-                                        <div key={section.name}>
+                                        <div key={section.name} className=" touch-auto">
                                           <p
                                             id={`${section.name}-heading`}
                                             className="font-medium text-gray-900"
@@ -466,7 +498,7 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  {true ? (
+                  {auth.user?.firstName ? (
                     <div>
                       <Avatar
                         onClick={handleUserClick}
@@ -479,7 +511,7 @@ export default function Navigation() {
                           cursor: "pointer",
                         }}
                       >
-                        R
+                        {auth.user?.firstName[0].toUpperCase()}
                       </Avatar>
 
                       <Menu
@@ -495,7 +527,7 @@ export default function Navigation() {
                           Profile
                         </MenuItem>
                         <MenuItem onClick={()=>navigate("/account/order")}>My Order</MenuItem>
-                        <MenuItem>Logout</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
                       </Menu>
                     </div>
                   ) : (
@@ -537,6 +569,7 @@ export default function Navigation() {
           </div>
         </nav>
       </header>
+      <AuthModal handleClose={handleClose} open={openAuthModal} />
     </div>
   );
 }
