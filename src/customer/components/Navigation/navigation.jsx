@@ -41,9 +41,9 @@ const navigation = {
           id: "clothing",
           name: "Clothing",
           items: [
-            { name: "Tops",id:'top', href:`{women/clothing/top}` },
+            { name: "Tops",id:'top', href:`women/clothing/top` },
             { name: "Dresses",id:'dress', href: "#" },
-            { name: "Pants",id:'pant', href: "#" },
+            { name: "Pants",id:'pant', href: `women/clothing/pant` },
             { name: "T-Shirts",id:'tshirt', href: "#" },
            
           ],
@@ -77,8 +77,8 @@ const navigation = {
           id: "clothing",
           name: "Clothing",
           items: [
-            { name: "Tops",id:'top', href: "men/clothing/top" },
-            { name: "Pants", href: "#" },
+            { name: "Tops",id:'men_top', href: `men/clothing/top` },
+            { name: "Pants", href: "" },
             { name: "Sweaters", href: "#" },
             { name: "T-Shirts", href: "#" },
             { name: "Jackets", href: "#" },
@@ -306,7 +306,7 @@ const handleLogout=()=>{
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
                     <a
-                      href="#"
+                      onClick={handleOpen}
                       className="-m-2 block p-2 font-medium text-gray-900"
                     >
                       Sign in
@@ -358,9 +358,9 @@ const handleLogout=()=>{
                     src="https://i.ibb.co/Jd6SgWM/20240320-142050.png"
                     alt=""
                   />
-                  <span className=" text-xl Poppins font-extrabold space-x-3 pt-3 pr-5">
+                  <a href="/" className=" text-xl Poppins font-extrabold space-x-3 pt-3 pr-5">
                     GlintGlam
-                  </span>
+                  </a>
                 </a>
               </div>
 
@@ -375,7 +375,7 @@ const handleLogout=()=>{
                             <Popover.Button
                               className={classNames(
                                 open
-                                  ? "border-indigo-600 text-indigo-600"
+                                  ? "border-black text-black"
                                   : "border-transparent text-gray-700 hover:text-gray-800",
                                 "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
                               )}
@@ -400,16 +400,16 @@ const handleLogout=()=>{
                                 aria-hidden="true"
                               />
 
-                              <div className="relative bg-white">
+                              <div className=" z-50 bg-white">
                                 <div className="mx-auto max-w-7xl px-8">
                                   <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
-                                    <div className="col-start-2 grid grid-cols-2 gap-x-8">
+                                    <div className=" z-50 col-start-2 grid grid-cols-2 gap-x-8">
                                       {category.featured.map((item) => (
                                         <div
                                           key={item.name}
                                           className="group relative text-base sm:text-sm"
                                         >
-                                          <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                          <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-white group-hover:opacity-75">
                                             <img
                                               src={item.imageSrc}
                                               alt={item.imageAlt}
@@ -435,7 +435,7 @@ const handleLogout=()=>{
                                         </div>
                                       ))}
                                     </div>
-                                    <div className="row-start-1 grid grid-cols-3 gap-x-8 z-50 gap-y-10 text-sm">
+                                    <div className="row-start-1  grid grid-cols-3 gap-x-8 z-50 gap-y-10 text-sm">
                                       {category.sections.map((section) => (
                                         <div key={section.name} className=" touch-auto">
                                           <p

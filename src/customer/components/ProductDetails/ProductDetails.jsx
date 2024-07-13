@@ -1,12 +1,15 @@
 
 import { Grid, Rating,Box,LinearProgress } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import ProductReviewCard from './ProductReviewCard'
 import { mens_kurta } from '../../../data/kurta'
 import HomeSectionCarousel from '../HomeSectionCarousel/HomeSectionCarousel'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { findProductsById } from '../../../state/Product/Action'
+import { store } from '../../../state/store'
 
 const product = {
   name: 'Basic Tee 6-Pack',
@@ -65,13 +68,20 @@ function classNames(...classes) {
 }
 
 export default function ProductDetails() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0])
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+
+  const [selectedSize, setSelectedSize] = useState()
   const navigate = useNavigate();
+  const paramms=useParams()
+  const dispatch=useDispatch()
+  const {products}=useSelector(store=>store)
+  console.log("foaof",paramms)
   const handleAddToCart =()=>{
     navigate("/cart")
   }
-
+useEffect(()=>{
+  const data={productId:paramms.productId}
+dispatch(findProductsById(data))
+},[paramms.productId])
   return (
     <div className="bg-white lg:px-20">
       <div className="pt-6">
@@ -108,22 +118,22 @@ export default function ProductDetails() {
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
             <img
-              src={product.images[0].src}
-              alt={product.images[0].alt}
+              src={products.product?.imageUrl}
+              alt={product.product?.imageUrl}
               className="h-full w-full object-cover object-center"
             />
           </div>
           
           <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
             <img
-              src={product.images[3].src}
+              src={products.product?.imageUrl}
               alt={product.images[3].alt}
               className="h-full w-full object-cover object-center"
             />
           </div>
           <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 h-0 lg:h-full lg:visible sm:rounded-lg">
             <img
-              src={product.images[1].src}
+              src={products.product?.imageUrl}
               alt={product.images[1].alt}
               className="h-full w-full object-cover object-center rounded-lg"
             />

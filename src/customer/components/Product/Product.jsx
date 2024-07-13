@@ -12,12 +12,16 @@ import {
 import { mens_kurta } from "../../../data/kurta";
 import ProductCard from "./ProductCard";
 import Radio from "@mui/material/Radio";
+import Pagination from '@mui/material/Pagination';
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import MainCarousel from "../HomeCarousel/MainCarousel";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { findProducts } from "../../../state/Product/Action";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -33,11 +37,12 @@ const filters = [
     name: "Color",
     options: [
       { value: "white", label: "White"},
-      { value: "beige", label: "Beige"},
+      { value: "black", label: "Black"},
       { value: "blue", label: "Blue"},
       { value: "brown", label: "Brown"},
       { value: "green", label: "Green"},
       { value: "purple", label: "Purple"},
+      { value: "pink", label: "Pink"},
     ],
   },
 
@@ -91,6 +96,18 @@ export default function Product() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const location=useLocation();
   const navigate = useNavigate();
+  const paramm=useParams();
+  const dispatch=useDispatch();
+  const {product}=useSelector(store=>store)
+  const decodedQueryString=decodeURIComponent(location.search);
+  const searchParamms=new URLSearchParams(decodedQueryString);
+  const colorValue=searchParamms.get("color");
+  const sizeValue=searchParamms.get("sizes");
+  const priceValue=searchParamms.get("price")
+  const disccount=searchParamms.get("disccount")
+  const sortValue=searchParamms.get("sort")
+  const pageNumber = searchParamms.get("page")
+  const stock=searchParamms.get("stock")
 
   const handleFilter=(value,sectionId)=>{
     const searchParamms =new URLSearchParams(location.search)
@@ -120,9 +137,44 @@ const handleRedioFilterChange =(e,sectionId)=>{
   const query=searchParamms.toString();
     navigate({search:`${query}`})
 } 
+const handlePaginationChange=(event,value)=>{
+  const searchParamms= new URLSearchParams(location.search)
+  searchParamms.set("page",value);
+  const query= searchParamms.toString();
+  navigate({search:`?${query}`})
+}
+
+useEffect(()=>{
+const [minPrice,maxPrice]=priceValue===null?[0,10000]:priceValue.split("-").map(Number);
+
+const data={
+  category:paramm.lavelThree,
+  color:colorValue || [],
+  sizes:sizeValue || [],
+  minPrice,
+  maxPrice,
+  minDiscount:disccount || 0,
+  sort:sortValue || "price_low",
+  pageNumber:pageNumber ,
+  pageSize:5,
+  stock:stock
+
+}
+dispatch(findProducts(data))
+},[
+  paramm.lavelThree,
+  colorValue,
+  pageNumber,
+  priceValue,
+  sizeValue,
+  sortValue,
+  disccount,
+  stock
+])
+
   return (
     <div className="bg-white">
-      <MainCarousel />
+      {/* <MainCarousel /> */}
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -516,11 +568,16 @@ const handleRedioFilterChange =(e,sectionId)=>{
               <div className="lg:col-span-4 flex ">
                 {/* Your content */}
                 <div className="flex flex-wrap justify-center  bg-white ">
-                  {mens_kurta.map((item) => (
+                  {product.products && product.products?.content?.map((item) => (
                     <ProductCard product={item} />
                   ))}
                 </div>
               </div>
+            </div>
+          </section>
+          <section className=" w-full px-[3.6rem]">
+            <div className="px-5 py-5 justify-center flex">
+            <Pagination count={product.products?.totalPages}  onChange={handlePaginationChange} />
             </div>
           </section>
         </main>
