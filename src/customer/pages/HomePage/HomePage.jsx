@@ -8,10 +8,12 @@ import Footer from '../../components/footer/footer.jsx'
 import HomeParallex from '../../components/HomePage2/HomeParallex.jsx'
 import Header from '../../components/header/header.jsx'
 import Model from '../../components/threeDmodel/Model.jsx'
+import { Analytics } from "@vercel/analytics/react"
 
 const HomePage = () => {
   return (
     <div className=''>
+      <Analytics />
       <Header  />
       {/* <HomeParallex/> */}
       <HeroFirst />

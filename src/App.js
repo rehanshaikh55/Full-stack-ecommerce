@@ -12,6 +12,7 @@ import Footer from './customer/components/footer/footer.jsx';
 import HomePage from './customer/pages/HomePage/HomePage.jsx';
 import CustomerRouters from './Routers/CustomerRouters.jsx';
 
+
 function App() {
   return (
     <div className="App">
