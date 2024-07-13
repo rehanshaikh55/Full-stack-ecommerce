@@ -9,7 +9,7 @@ const ModelView = () => {
     <div>
       <Canvas className=' border bg-gray-50 rounded-3xl' >
         <ambientLight />
-        <OrbitControls scale={20} enableZoom={false} minZoom={2} zoom0={20} />
+        <OrbitControls scale={20} enableZoom={false} minZoom={2} zoom0={25} />
             <Suspense  fallback={null} >
                   <Shirt2 />
             </Suspense>
