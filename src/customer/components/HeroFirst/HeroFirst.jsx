@@ -38,12 +38,12 @@ const HeroFirst = () => {
           <div class="container mx-auto h-full sm:p-10">
             <header class="container px-20 lg:flex mt-10 items-center h-full lg:mt-0">
               <div class="w-full">
-                <h1 class="text-4xl lg:text-3xl font-bold" >
+                <h1 class="sm:text-4xl text-2xl font-bold" >
                   Welcome to Glintglam - Where Elegance Meets Contemporary
                   Confidence!
                 </h1>
-                <div class="w-20 sm:w-[25] h-2  my-4"></div>
-                <p class="text-lg mb-10 line-clamp-6" >
+                <div class="w-20 sm:w-25 h-2  my-4"></div>
+                <p class="text-s md:text-lg mb-10 line-clamp-6" >
                   Step into the world of refined style and unmatched
                   sophistication with Glintglam, your go-to destination for
                   elevating your wardrobe to new heights. More than just a men's
