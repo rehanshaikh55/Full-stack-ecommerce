@@ -42,7 +42,7 @@ const HeroFirst = () => {
                   Welcome to Glintglam - Where Elegance Meets Contemporary
                   Confidence!
                 </h1>
-                <div class="w-20 h-2  my-4"></div>
+                <div class="w-20 sm:w-[25] h-2  my-4"></div>
                 <p class="text-lg mb-10 line-clamp-6" >
                   Step into the world of refined style and unmatched
                   sophistication with Glintglam, your go-to destination for
