@@ -98,7 +98,7 @@ export default function Product() {
   const navigate = useNavigate();
   const paramm=useParams();
   const dispatch=useDispatch();
-  const {product}=useSelector(store=>store)
+  const {products}=useSelector(store=>store)
   const decodedQueryString=decodeURIComponent(location.search);
   const searchParamms=new URLSearchParams(decodedQueryString);
   const colorValue=searchParamms.get("color");
@@ -155,8 +155,8 @@ const data={
   maxPrice,
   minDiscount:disccount || 0,
   sort:sortValue || "price_low",
-  pageNumber:pageNumber ,
-  pageSize:5,
+  pageNumber:pageNumber,
+  pageSize:8,
   stock:stock
 
 }
@@ -568,7 +568,7 @@ dispatch(findProducts(data))
               <div className="lg:col-span-4 flex ">
                 {/* Your content */}
                 <div className="flex flex-wrap justify-center  bg-white ">
-                  {product.products && product.products?.content?.map((item) => (
+                  {products.products && products.products?.content?.map((item) => (
                     <ProductCard product={item} />
                   ))}
                 </div>
@@ -577,7 +577,7 @@ dispatch(findProducts(data))
           </section>
           <section className=" w-full px-[3.6rem]">
             <div className="px-5 py-5 justify-center flex">
-            <Pagination count={product.products?.totalPages}  onChange={handlePaginationChange} />
+            <Pagination count={products.products?.totalPages}  onChange={handlePaginationChange} />
             </div>
           </section>
         </main>

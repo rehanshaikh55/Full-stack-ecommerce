@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Cartitem from "./Cartitem";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCart } from "../../../state/cart/Action";
 
 const Cart = () => {
    const navigate = useNavigate();
+   const dispatch=useDispatch();
+   const {cart}=useSelector(store=>store)
    const hancleCheckOut =()=>{
     navigate("/checkout?step=2")
    }
+   useEffect(()=>{
+          dispatch(getCart())
+   },[cart.updateCartItems,cart.deleteCartItems])
   return (
     <div>
       <div className=" lg:grid grid-cols-3 lg:px-3 relative">
         <div className=" col-span-2">
-          {[1,1,1,1].map((item)=><Cartitem />)}
+          {cart.cart?.cartItems.map((item)=><Cartitem item={item} />)}
         </div>
         <div className=" px-5 lg:sticky lg:h-[100vh]  mt-5 lg:mt-0">
           <div className=" border">
@@ -23,11 +30,11 @@ const Cart = () => {
             <div className=" space-y-3  p-4">
                 <div className=" flex justify-between pt-3 text-black">
                   <span>Price</span>
-                  <span className="">₹6000</span>
+                  <span className="">₹{cart.cart?.totalPrice}</span>
                 </div>
                 <div className=" flex justify-between pt-3 text-black">
                   <span>Disccount</span>
-                  <span className=" text-green-600">-₹4000</span>
+                  <span className=" text-green-600">-₹{cart.cart?.discounte}</span>
                 </div>
                 <div className=" flex justify-between pt-3 text-black">
                   <span>Delivery Charge</span>
@@ -35,7 +42,7 @@ const Cart = () => {
                 </div>
                 <div className=" flex justify-between pt-3 border-t-2">
                   <span className=" font-bold">Total Amount</span>
-                  <span className="">₹2000</span>
+                  <span className="">₹{cart.cart?.totalPrice}</span>
                 </div>
             </div>
             <button

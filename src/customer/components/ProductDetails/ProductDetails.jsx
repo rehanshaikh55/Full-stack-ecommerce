@@ -10,6 +10,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { findProductsById } from '../../../state/Product/Action'
 import { store } from '../../../state/store'
+import { addItemToCart } from '../../../state/cart/Action'
+
 
 const product = {
   name: 'Basic Tee 6-Pack',
@@ -69,15 +71,20 @@ function classNames(...classes) {
 
 export default function ProductDetails() {
 
-  const [selectedSize, setSelectedSize] = useState()
+  const [selectedSize, setSelectedSize] = useState("")
   const navigate = useNavigate();
   const paramms=useParams()
   const dispatch=useDispatch()
-  const {products}=useSelector(store=>store)
+  const {products}= useSelector(store=>store)
   console.log("foaof",paramms)
   const handleAddToCart =()=>{
+    const data = {productId:paramms.productId,size:selectedSize.name}
+    console.log("dataa",data);
+    
+    dispatch(addItemToCart(data))
     navigate("/cart")
   }
+
 useEffect(()=>{
   const data={productId:paramms.productId}
 dispatch(findProductsById(data))
@@ -115,43 +122,45 @@ dispatch(findProductsById(data))
         </nav>
 
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-            <img
-              src={products.product?.imageUrl}
-              alt={product.product?.imageUrl}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
+        <div className="mx-auto flex items-center justify-center mt-6 max-w-2xl sm:px-6  lg:max-w-7xl  lg:gap-x-8 lg:px-8">
           
-          <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+          
+          <div className="aspect-h-5 h-[400px] aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
             <img
               src={products.product?.imageUrl}
               alt={product.images[3].alt}
               className="h-full w-full object-cover object-center"
             />
           </div>
-          <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 h-0 lg:h-full lg:visible sm:rounded-lg">
+          <div className="aspect-h-5 h-[400px] aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 max-[600px]:hidden sm:overflow-hidden sm:rounded-lg">
             <img
               src={products.product?.imageUrl}
-              alt={product.images[1].alt}
-              className="h-full w-full object-cover object-center rounded-lg"
+              alt={product.images[3].alt}
+              className="h-full w-full object-cover object-center"
             />
           </div>
+          <div className="aspect-h-5 h-[400px] aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 max-[800px]:hidden sm:overflow-hidden sm:rounded-lg">
+            <img
+              src={products.product?.imageUrl}
+              alt={product.images[3].alt}
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
+         
         </div>
 
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{products.product?.title}</h1>
           </div>
 
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <div className='flex gap-6 items-center'>
-            <p className="text-3xl tracking-tight text-gray-900">₹600</p>
-            <p className="text-2xl tracking-tight line-through text-gray-700">₹2000</p>
+            <p className="text-3xl tracking-tight text-gray-900">{products.product?.price} Rs</p>
+            <p className="text-2xl tracking-tight line-through text-gray-700"></p>
             <p className="text-2xl  text-green-500">10% off</p>
  
  </div>
@@ -243,7 +252,7 @@ dispatch(findProductsById(data))
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{product.description}</p>
+                <p className="text-base text-gray-900">{products.product?.description}</p>
               </div>
             </div>
 
